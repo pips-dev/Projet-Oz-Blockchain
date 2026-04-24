@@ -1,0 +1,148 @@
+=====================================================================
+BLOCKCHAIN FUNCTOR MODULE - FULL FUNCTION DOCUMENTATION
+=====================================================================
+
+This module implements a simplified blockchain system with hashing,
+validation, balance tracking, and execution logic.
+
+---------------------------------------------------------------------
+FUNCTION DOCUMENTATION
+---------------------------------------------------------------------
+
+Pow(X, N)
+    Computes X raised to the power N using recursion.
+    Used for modular hashing and effort calculations.
+
+---------------------------------------------------------------------
+
+HashTransaction(Transaction)
+    Produces a hash for a transaction using:
+    nonce + sender + receiver + value (mod 1,000,000).
+    Ensures transaction integrity.
+
+---------------------------------------------------------------------
+
+SumTransactions(Transactions, Acc)
+    Recursively sums the hashes of all transactions in a list.
+    Used for block hashing.
+
+---------------------------------------------------------------------
+
+HashBlock(Block)
+    Computes a hash of a block using:
+    block number + previous hash + sum of transaction hashes
+    (mod 1,000,000).
+    Ensures block integrity.
+
+---------------------------------------------------------------------
+
+DigitCount(N, Acc)
+    Counts the number of digits in integer N.
+    Used for effort estimation.
+
+---------------------------------------------------------------------
+
+EffortScore(N, Acc, I)
+    Computes cumulative computational effort using powers of 2.
+    Models exponential cost based on input size.
+
+---------------------------------------------------------------------
+
+CalculateEffort(Transaction)
+    Computes the computational effort required for a transaction
+    based on its value size (digit count).
+    Used to enforce max_effort limits.
+
+---------------------------------------------------------------------
+
+GetLastNonce(Sender, Blockchain)
+    Retrieves the highest nonce previously used by a sender across
+    the entire blockchain.
+    Ensures transaction ordering.
+
+---------------------------------------------------------------------
+
+FindLastNonce(Sender, Transactions, LastFound)
+    Helper function that scans a transaction list to find the
+    highest nonce for a given sender.
+
+---------------------------------------------------------------------
+
+ValidateTransaction(Transaction, Sender, LastNonce, Balance, Blockchain)
+    Validates a single transaction by checking:
+    - Correct nonce sequencing
+    - Correct hash
+    - Non-negative value
+    - Positive max_effort
+    - Sufficient balance
+    - Effort within allowed limit
+
+---------------------------------------------------------------------
+
+GetBalance(Sender, Genesis, Blockchain)
+    Computes the current balance of a user starting from the genesis
+    state and applying all blockchain transactions.
+
+---------------------------------------------------------------------
+
+CalculateBalance(Sender, Acc, Blockchain)
+    Iterates through all blocks and updates the sender’s balance.
+
+---------------------------------------------------------------------
+
+UpdateBalance(Sender, Acc, Transactions)
+    Updates balance based on transactions:
+    - Subtracts value if sender
+    - Adds value if receiver
+
+---------------------------------------------------------------------
+
+ValidateAllTransactions(Transactions, Genesis, Blockchain)
+    Validates all transactions in a block using full validation rules.
+
+---------------------------------------------------------------------
+
+ValidateBlock(Block, PreviousBlock, Genesis, Blockchain)
+    Validates a block by checking:
+    - Sequential block number
+    - Correct previous hash
+    - Correct block hash
+    - Valid transactions
+    - Total effort under limit
+
+---------------------------------------------------------------------
+
+GetPreviousBlock(Number, Blockchain)
+    Retrieves the block preceding a given block number.
+    (Used for linking blocks in the chain.)
+
+---------------------------------------------------------------------
+
+SumEfforts(Transactions, Acc)
+    Computes total computational effort of all transactions in a block.
+
+---------------------------------------------------------------------
+
+GetUserBalance(User)
+    Intended to extract or compute a user's balance from a user record.
+    (Currently incomplete in implementation.)
+
+---------------------------------------------------------------------
+
+Decode(Blockchain)
+    Intended to extract or reconstruct a hidden or encoded message
+    from the blockchain.
+    (Not implemented.)
+
+---------------------------------------------------------------------
+
+ExecuteBlockchain(GenesisState, Transactions, FinalState, FinalBlockchain)
+    Main execution procedure:
+    - Processes transactions
+    - Validates blocks
+    - Builds final blockchain
+    - Produces final state
+
+=====================================================================
+END OF DOCUMENTATION
+=====================================================================
